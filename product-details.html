@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>প্রোডাক্ট ডিটেলস - আমাদের ই-কমার্স শপ</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: Hind Siliguri -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind Font Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        // 'sans' ফন্ট পরিবর্তন করে Hind Siliguri দেওয়া হলো
+                        sans: ['"Hind Siliguri"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+<body class="bg-gray-50 text-gray-800 font-sans">
+
+    <!-- Navbar -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold text-blue-600">
+                Shop<span class="text-orange-500">Logo</span>
+            </a>
+            <nav class="hidden md:flex space-x-6 font-medium">
+                <a href="index.html" class="hover:text-orange-500 transition">হোম</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Product Details & Checkout Section -->
+    <section class="py-12">
+        <div class="container mx-auto px-4">
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 md:p-10 flex flex-col md:flex-row gap-10">
+                
+                <!-- Left Side: Product Images -->
+                <div class="md:w-1/2">
+                    <!-- Main Image -->
+                    <div class="w-full h-80 md:h-96 bg-gray-200 rounded-lg flex items-center justify-center mb-4">
+                        <span class="text-gray-400">মেইন প্রোডাক্ট ইমেজ</span>
+                    </div>
+                    <!-- Thumbnails -->
+                    <div class="flex space-x-4">
+                        <div class="w-20 h-20 bg-gray-200 rounded-lg flex items-center justify-center cursor-pointer border-2 border-blue-600">
+                            <span class="text-xs text-gray-400">ছবি ১</span>
+                        </div>
+                        <div class="w-20 h-20 bg-gray-200 rounded-lg flex items-center justify-center cursor-pointer border hover:border-blue-600 transition">
+                            <span class="text-xs text-gray-400">ছবি ২</span>
+                        </div>
+                        <div class="w-20 h-20 bg-gray-200 rounded-lg flex items-center justify-center cursor-pointer border hover:border-blue-600 transition">
+                            <span class="text-xs text-gray-400">ছবি ৩</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Side: Product Info & Order Form -->
+                <div class="md:w-1/2">
+                    <span id="prod-category" class="text-sm text-orange-500 font-semibold uppercase tracking-wider">ক্যাটাগরি</span>
+                    <h1 id="prod-name" class="text-3xl font-bold text-gray-800 mt-2 mb-4">প্রোডাক্টের নাম</h1>
+                    
+                    <div class="flex items-center space-x-4 mb-6">
+                        <span id="prod-price" class="text-3xl font-bold text-blue-600">৳০</span>
+                        <span id="prod-old-price" class="text-xl text-gray-400 line-through"></span>
+                    </div>
+
+                    <p id="prod-desc" class="text-gray-600 mb-6 leading-relaxed">
+                        প্রোডাক্টের বিস্তারিত বিবরণ এখানে দেখাবে।
+                    </p>
+
+                    <hr class="mb-6 border-gray-200">
+                    
+                    <!-- Quick Checkout Form -->
+                    <div class="bg-blue-50 p-6 rounded-lg border border-blue-100">
+                        <h3 class="text-lg font-bold text-gray-800 mb-4">অর্ডার করতে নিচের ফর্মটি পূরণ করুন</h3>
+                        
+                        <form id="order-form">
+                            <div class="mb-4">
+                                <label class="block text-sm font-medium text-gray-700 mb-1">আপনার নাম *</label>
+                                <input type="text" id="customer-name" placeholder="সম্পূর্ণ নাম লিখুন" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500" required>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label class="block text-sm font-medium text-gray-700 mb-1">মোবাইল নাম্বার *</label>
+                                <input type="tel" id="customer-phone" placeholder="01XXXXXXXXX" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500" required>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label class="block text-sm font-medium text-gray-700 mb-1">ডেলিভারি এরিয়া *</label>
+                                <select id="delivery-area" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500" required>
+                                    <option value="" disabled selected>এরিয়া সিলেক্ট করুন</option>
+                                    <option value="Dhaka Inside">ঢাকার ভেতরে (ডেলিভারি চার্জ ৳৬০)</option>
+                                    <option value="Dhaka Outside">ঢাকার বাইরে (ডেলিভারি চার্জ ৳১২০)</option>
+                                </select>
+                            </div>
+                            
+                            <div class="mb-6">
+                                <label class="block text-sm font-medium text-gray-700 mb-1">সম্পূর্ণ ঠিকানা *</label>
+                                <textarea id="customer-address" rows="2" placeholder="বাসা নং, রাস্তা, এলাকা, জেলা" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500" required></textarea>
+                            </div>
+                            
+                            <input type="hidden" id="ordered-product-id" value="">
+                            
+                            <button type="submit" id="submit-btn" class="w-full bg-orange-500 text-white font-bold text-lg py-3 rounded shadow hover:bg-orange-600 transition">
+                                অর্ডার কনফার্ম করুন
+                            </button>
+                            <p class="text-center text-xs text-gray-500 mt-3">** ক্যাশ অন ডেলিভারি (প্রোডাক্ট হাতে পেয়ে টাকা দিবেন) **</p>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 py-6 border-t-4 border-blue-600 text-center">
+        <p class="text-sm">&copy; ২০২৬ ShopLogo. সর্বস্বত্ব সংরক্ষিত।</p>
+    </footer>
+
+    <!-- Product Logic Script -->
+    <script>
+        const products = [
+            {
+                id: 1,
+                category: "টুলস",
+                name: "স্মার্ট লোকেশন ট্র্যাকিং ডিভাইস",
+                price: "৳১২৫০",
+                oldPrice: "",
+                desc: "আপনার প্রয়োজনীয় জিনিসপত্র আর কখনোই হারাবে না। চাবির রিং, ব্যাগ বা ওয়ালেটে লাগিয়ে রাখুন এবং স্মার্টফোনের মাধ্যমে ট্র্যাক করুন।"
+            },
+            {
+                id: 2,
+                category: "লাইফস্টাইল",
+                name: "ফাস্ট চার্জিং পাওয়ার ব্যাংক (10000mAh)",
+                price: "৳৮৫০",
+                oldPrice: "৳১১০০",
+                desc: "সারাদিন বাইরে থাকার সময় ফোনের চার্জ নিয়ে আর কোনো চিন্তা নেই! এই ফাস্ট চার্জিং পাওয়ার ব্যাংকটি দিয়ে খুব দ্রুত আপনার স্মার্টফোন চার্জ করে নিন।"
+            },
+            {
+                id: 3,
+                category: "হোম & কিচেন",
+                name: "নন-স্টিক কুকওয়্যার সেট",
+                price: "৳২২০০",
+                oldPrice: "৳২৫০০",
+                desc: "তেল ছাড়া স্বাস্থ্যকর রান্নার জন্য সেরা মানের নন-স্টিক কুকওয়্যার সেট। এটি পরিষ্কার করা একদম সহজ।"
+            },
+            {
+                id: 4,
+                category: "বেবি কেয়ার",
+                name: "ডিজিটাল বেবি ওয়েট স্কেল",
+                price: "৳১৫০০",
+                oldPrice: "৳১৮০০",
+                desc: "আপনার শিশুর সঠিক ওজন মাপার জন্য একদম নিখুঁত একটি ডিজিটাল স্কেল।"
+            }
+        ];
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const productId = parseInt(urlParams.get('id'));
+        const product = products.find(p => p.id === productId);
+
+        if (product) {
+            document.getElementById('prod-category').innerText = product.category;
+            document.getElementById('prod-name').innerText = product.name;
+            document.getElementById('prod-price').innerText = product.price;
+            document.getElementById('prod-old-price').innerText = product.oldPrice;
+            document.getElementById('prod-desc').innerText = product.desc;
+            
+            document.getElementById('ordered-product-id').value = product.id;
+        } else {
+            document.getElementById('prod-name').innerText = "প্রোডাক্টটি পাওয়া যায়নি!";
+            document.getElementById('prod-category').innerText = "Error";
+            document.getElementById('prod-price').innerText = "";
+            document.getElementById('prod-desc').innerText = "দয়া করে হোমপেজে ফিরে গিয়ে আবার চেষ্টা করুন।";
+        }
+    </script>
+
+    <!-- Firebase Order Submission Script -->
+    <script type="module">
+        // firebase-config.js থেকে ফায়ারবেস ইম্পোর্ট করা
+        import { db, collection, addDoc } from './firebase-config.js';
+
+        const orderForm = document.getElementById('order-form');
+        const submitBtn = document.getElementById('submit-btn');
+
+        orderForm.addEventListener('submit', async (e) => {
+            e.preventDefault(); // পেজ রিলোড বন্ধ করা
+
+            // বাটন লোডিং স্টেট
+            submitBtn.innerText = "অর্ডার প্রসেস হচ্ছে...";
+            submitBtn.disabled = true;
+
+            // ডেটা সংগ্রহ করা
+            const productId = document.getElementById('ordered-product-id').value;
+            const productName = document.getElementById('prod-name').innerText; 
+            const productPrice = document.getElementById('prod-price').innerText;
+            const customerName = document.getElementById('customer-name').value;
+            const customerPhone = document.getElementById('customer-phone').value;
+            const deliveryArea = document.getElementById('delivery-area').value;
+            const customerAddress = document.getElementById('customer-address').value;
+
+            try {
+                // ফায়ারবেস ডেটাবেসে পাঠানো
+                await addDoc(collection(db, "orders"), {
+                    product_id: productId,
+                    product_name: productName,
+                    price: productPrice,
+                    customer_name: customerName,
+                    customer_phone: customerPhone,
+                    delivery_area: deliveryArea,
+                    customer_address: customerAddress,
+                    status: "Pending", // ডিফল্ট স্ট্যাটাস
+                    order_date: new Date().toISOString()
+                });
+
+                alert("ধন্যবাদ! আপনার অর্ডারটি সফলভাবে সম্পন্ন হয়েছে। খুব শীঘ্রই আমাদের প্রতিনিধি আপনার সাথে যোগাযোগ করবে।");
+                orderForm.reset();
+                window.location.href = "index.html"; // সফল হলে হোমপেজে পাঠানো
+
+            } catch (error) {
+                console.error("Error placing order: ", error);
+                alert("দুঃখিত, কোনো একটি সমস্যা হয়েছে। দয়া করে আবার চেষ্টা করুন।");
+            } finally {
+                // বাটন আগের অবস্থায় আনা
+                submitBtn.innerText = "অর্ডার কনফার্ম করুন";
+                submitBtn.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>

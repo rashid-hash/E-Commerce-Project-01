@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>মডার্ন অ্যাডমিন ড্যাশবোর্ড - ই-কমার্স</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* কাস্টম স্ক্রলবার ডিজাইন */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+</head>
+<!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: Hind Siliguri -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind Font Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        // 'sans' ফন্ট পরিবর্তন করে Hind Siliguri দেওয়া হলো
+                        sans: ['"Hind Siliguri"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+<body class="bg-slate-50 font-sans text-slate-800 flex h-screen overflow-hidden">
+
+    <!-- Sidebar -->
+    <aside class="w-64 bg-slate-900 text-slate-300 flex flex-col shadow-xl z-20 hidden md:flex">
+        <div class="h-20 flex items-center px-8 border-b border-slate-800">
+            <h2 class="text-2xl font-bold text-white tracking-wide">Shop<span class="text-blue-500">Admin</span></h2>
+        </div>
+        <nav class="flex-1 px-4 py-6 space-y-2">
+            <a href="#" class="flex items-center gap-3 px-4 py-3 bg-blue-600 text-white rounded-xl font-medium shadow-lg shadow-blue-600/20 transition-all">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
+                অর্ডার লিস্ট
+            </a>
+            <a href="#" class="flex items-center gap-3 px-4 py-3 hover:bg-slate-800 hover:text-white rounded-xl font-medium transition-all">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path></svg>
+                প্রোডাক্ট ম্যানেজমেন্ট
+            </a>
+            <a href="#" class="flex items-center gap-3 px-4 py-3 hover:bg-slate-800 hover:text-white rounded-xl font-medium transition-all">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                সেটিংস
+            </a>
+        </nav>
+        <div class="p-6 border-t border-slate-800">
+            <a href="index.html" class="flex items-center gap-3 text-slate-400 hover:text-white transition-all">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 15l-3-3m0 0l3-3m-3 3h8M3 12a9 9 0 1118 0 9 9 0 01-18 0z"></path></svg>
+                ওয়েবসাইটে যান
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col h-screen overflow-hidden">
+        
+        <!-- Header Section -->
+        <header class="h-20 bg-white border-b border-slate-200 px-8 flex items-center justify-between z-10 shadow-sm">
+            <h1 class="text-2xl font-bold text-slate-800">অর্ডার ওভারভিউ</h1>
+            <div class="flex items-center gap-4">
+                <button class="relative p-2 text-slate-400 hover:text-blue-600 transition-colors">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
+                    <span class="absolute top-1 right-1 w-2.5 h-2.5 bg-red-500 rounded-full border-2 border-white"></span>
+                </button>
+                <div class="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold border border-blue-200">
+                    A
+                </div>
+            </div>
+        </header>
+
+        <!-- Scrollable Content Area -->
+        <div class="flex-1 overflow-y-auto p-4 md:p-8">
+            
+            <!-- Summary Stats Widgets -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <!-- Total Orders -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-slate-500 mb-1">মোট অর্ডার</p>
+                        <h3 id="stat-total" class="text-3xl font-bold text-slate-800">০</h3>
+                    </div>
+                    <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center text-xl">
+                        📦
+                    </div>
+                </div>
+                <!-- Pending Orders -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-slate-500 mb-1">পেন্ডিং আছে</p>
+                        <h3 id="stat-pending" class="text-3xl font-bold text-amber-500">০</h3>
+                    </div>
+                    <div class="w-12 h-12 bg-amber-50 text-amber-500 rounded-full flex items-center justify-center text-xl">
+                        ⏳
+                    </div>
+                </div>
+                <!-- Delivered Orders -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-slate-500 mb-1">ডেলিভারি সম্পন্ন</p>
+                        <h3 id="stat-delivered" class="text-3xl font-bold text-emerald-500">০</h3>
+                    </div>
+                    <div class="w-12 h-12 bg-emerald-50 text-emerald-500 rounded-full flex items-center justify-center text-xl">
+                        ✅
+                    </div>
+                </div>
+            </div>
+
+            <!-- Orders Table Section -->
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+                <div class="px-6 py-5 border-b border-slate-100 flex justify-between items-center bg-white">
+                    <h2 class="text-lg font-bold text-slate-800">সাম্প্রতিক অর্ডারসমূহ</h2>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-slate-50/50 border-b border-slate-100 text-slate-500 text-xs uppercase tracking-wider">
+                                <th class="px-6 py-4 font-semibold">কাস্টমার প্রোফাইল</th>
+                                <th class="px-6 py-4 font-semibold">যোগাযোগ ও ঠিকানা</th>
+                                <th class="px-6 py-4 font-semibold">অর্ডার ডিটেলস</th>
+                                <th class="px-6 py-4 font-semibold">স্ট্যাটাস (আপডেট)</th>
+                                <th class="px-6 py-4 font-semibold text-right">তারিখ ও সময়</th>
+                            </tr>
+                        </thead>
+                        <tbody id="orders-table-body" class="divide-y divide-slate-100">
+                            <!-- Loading State -->
+                            <tr>
+                                <td colspan="5" class="py-16 text-center">
+                                    <div class="flex flex-col items-center justify-center space-y-3">
+                                        <svg class="animate-spin h-8 w-8 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                                        <span class="text-slate-500 font-medium">ডেটা ফেচ করা হচ্ছে...</span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+        </div>
+    </main>
+
+    <!-- Firebase Logic Script -->
+    <script type="module">
+        import { db, collection, getDocs, doc, updateDoc } from './firebase-config.js';
+
+        async function fetchOrders() {
+            const tableBody = document.getElementById('orders-table-body');
+            
+            try {
+                const querySnapshot = await getDocs(collection(db, "orders"));
+                
+                if(querySnapshot.empty) {
+                    tableBody.innerHTML = '<tr><td colspan="5" class="py-16 text-center text-slate-500 font-medium bg-slate-50/50">এখন পর্যন্ত কোনো অর্ডার আসেনি।</td></tr>';
+                    return;
+                }
+
+                let html = '';
+                let totalOrders = 0;
+                let pendingOrders = 0;
+                let deliveredOrders = 0;
+                
+                querySnapshot.forEach((docSnap) => {
+                    const order = docSnap.data();
+                    const orderId = docSnap.id;
+                    
+                    // পরিসংখ্যান কাউন্ট করা
+                    totalOrders++;
+                    if(order.status === 'Pending') pendingOrders++;
+                    if(order.status === 'Delivered') deliveredOrders++;
+
+                    const dateObj = new Date(order.order_date);
+                    const formattedDate = `<span class="text-slate-800 font-medium">${dateObj.toLocaleDateString('bn-BD')}</span><br><span class="text-xs text-slate-500">${dateObj.toLocaleTimeString('bn-BD', {hour: '2-digit', minute:'2-digit'})}</span>`;
+
+                    // স্ট্যাটাস অনুযায়ী ড্রপডাউনের মডার্ন ডিজাইন
+                    let statusColor = 'bg-slate-100 text-slate-700 border-slate-200'; 
+                    if (order.status === 'Pending') statusColor = 'bg-amber-50 text-amber-700 border-amber-200 focus:ring-amber-200';
+                    if (order.status === 'Processing') statusColor = 'bg-orange-50 text-orange-700 border-orange-200 focus:ring-orange-200';
+                    if (order.status === 'Shipped') statusColor = 'bg-blue-50 text-blue-700 border-blue-200 focus:ring-blue-200';
+                    if (order.status === 'Delivered') statusColor = 'bg-emerald-50 text-emerald-700 border-emerald-200 focus:ring-emerald-200';
+                    if (order.status === 'Cancelled') statusColor = 'bg-red-50 text-red-700 border-red-200 focus:ring-red-200';
+
+                    let selectHtml = `
+                        <select onchange="changeStatus('${orderId}', this.value, this)" class="${statusColor} appearance-none px-4 py-1.5 rounded-full text-xs font-bold border outline-none cursor-pointer text-center shadow-sm transition-all hover:shadow focus:ring-2 focus:ring-offset-1">
+                            <option value="Pending" ${order.status === 'Pending' ? 'selected' : ''}>Pending</option>
+                            <option value="Processing" ${order.status === 'Processing' ? 'selected' : ''}>Processing</option>
+                            <option value="Shipped" ${order.status === 'Shipped' ? 'selected' : ''}>Shipped</option>
+                            <option value="Delivered" ${order.status === 'Delivered' ? 'selected' : ''}>Delivered</option>
+                            <option value="Cancelled" ${order.status === 'Cancelled' ? 'selected' : ''}>Cancelled</option>
+                        </select>
+                    `;
+
+                    // কাস্টমারের নামের প্রথম অক্ষর দিয়ে অবতার লোগো
+                    const avatarLetter = order.customer_name ? order.customer_name.charAt(0).toUpperCase() : 'U';
+
+                    html += `
+                        <tr class="hover:bg-slate-50/80 transition-colors group">
+                            <td class="px-6 py-4">
+                                <div class="flex items-center gap-3">
+                                    <div class="h-10 w-10 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-600 font-bold group-hover:bg-blue-50 group-hover:text-blue-600 transition-colors">
+                                        ${avatarLetter}
+                                    </div>
+                                    <div>
+                                        <p class="font-bold text-slate-800">${order.customer_name}</p>
+                                        <p class="text-xs text-slate-400 mt-0.5">ID: <span class="font-mono">${orderId.substring(0, 6)}</span></p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4">
+                                <p class="font-medium text-slate-700">${order.customer_phone}</p>
+                                <p class="text-xs text-slate-500 mt-1 w-48 truncate" title="${order.customer_address}, ${order.delivery_area}">${order.customer_address}</p>
+                            </td>
+                            <td class="px-6 py-4">
+                                <p class="font-medium text-slate-800 line-clamp-1 w-48" title="${order.product_name}">${order.product_name}</p>
+                                <p class="text-sm text-blue-600 font-bold mt-1">${order.price}</p>
+                            </td>
+                            <td class="px-6 py-4">
+                                ${selectHtml}
+                            </td>
+                            <td class="px-6 py-4 text-right">
+                                ${formattedDate}
+                            </td>
+                        </tr>
+                    `;
+                });
+
+                tableBody.innerHTML = html;
+
+                // ড্যাশবোর্ডের সামারি কার্ড আপডেট করা
+                document.getElementById('stat-total').innerText = totalOrders;
+                document.getElementById('stat-pending').innerText = pendingOrders;
+                document.getElementById('stat-delivered').innerText = deliveredOrders;
+
+            } catch (error) {
+                console.error("Error fetching orders: ", error);
+                tableBody.innerHTML = '<tr><td colspan="5" class="py-16 text-center text-red-500 font-medium">ডেটা লোড করতে সমস্যা হয়েছে! ইন্টারনেট কানেকশন চেক করুন।</td></tr>';
+            }
+        }
+
+        window.changeStatus = async function(orderId, newStatus, selectElement) {
+            selectElement.disabled = true;
+            const originalText = selectElement.options[selectElement.selectedIndex].text;
+            
+            try {
+                const orderRef = doc(db, "orders", orderId);
+                await updateDoc(orderRef, {
+                    status: newStatus
+                });
+                
+                // আপডেট হওয়ার পর পুরো লিস্ট এবং কার্ডের পরিসংখ্যান রিলোড হবে
+                fetchOrders();
+
+            } catch (error) {
+                console.error("Error updating status: ", error);
+                alert("স্ট্যাটাস আপডেট করতে সমস্যা হয়েছে!");
+                selectElement.disabled = false;
+            }
+        };
+
+        fetchOrders();
+    </script>
+</body>
+</html>
