@@ -1,7 +1,8 @@
 // Firebase মডিউল ইম্পোর্ট করা
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 // এখানে doc এবং updateDoc নতুন করে যুক্ত করা হয়েছে
-import { getFirestore, collection, addDoc, getDocs, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+// একদম উপরের ইম্পোর্ট লাইনে getDoc যুক্ত করুন:
+import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, deleteDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBEBD6g__aVs1wS1jcRF1y06tXJREuA2H4",
@@ -15,5 +16,5 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// অন্য ফাইলে ব্যবহারের জন্য সবগুলো ফাংশন এক্সপোর্ট করা হলো
-export { db, collection, addDoc, getDocs, doc, updateDoc };
+// একদম নিচের এক্সপোর্ট লাইনে getDoc যুক্ত করুন:
+export { db, collection, addDoc, getDocs, doc, updateDoc, deleteDoc, getDoc };
