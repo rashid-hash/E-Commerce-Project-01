@@ -5,15 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>মাস্টার অ্যাডমিন প্যানেল - ই-কমার্স</title>
     <script src="https://cdn.tailwindcss.com"></script>
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
     <script>
-        tailwind.config = {
-            theme: { extend: { fontFamily: { sans: ['"Hind Siliguri"', 'sans-serif'], } } }
-        }
+        tailwind.config = { theme: { extend: { fontFamily: { sans: ['"Hind Siliguri"', 'sans-serif'], } } } }
     </script>
     <style>
         ::-webkit-scrollbar { width: 6px; height: 6px; }
@@ -30,18 +26,15 @@
         </div>
         <nav class="flex-1 px-4 py-6 space-y-2">
             <button id="menu-orders" onclick="switchTab('orders')" class="w-full flex items-center gap-3 px-4 py-3 bg-blue-600 text-white rounded-xl font-medium shadow-lg shadow-blue-600/20 transition-all">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
-                অর্ডার ওভারভিউ
+                📦 অর্ডার ওভারভিউ
             </button>
             <button id="menu-products" onclick="switchTab('products')" class="w-full flex items-center gap-3 px-4 py-3 hover:bg-slate-800 hover:text-white rounded-xl font-medium transition-all">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path></svg>
-                প্রোডাক্ট ম্যানেজমেন্ট
+                🛍️ প্রোডাক্ট ম্যানেজমেন্ট
             </button>
         </nav>
         <div class="p-6 border-t border-slate-800">
             <a href="index.html" class="flex items-center gap-3 text-slate-400 hover:text-white transition-all">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 15l-3-3m0 0l3-3m-3 3h8M3 12a9 9 0 1118 0 9 9 0 01-18 0z"></path></svg>
-                ওয়েবসাইটে যান
+                🌐 ওয়েবসাইটে যান
             </a>
         </div>
     </aside>
@@ -95,7 +88,7 @@
 
             <div id="section-products" class="hidden">
                 
-                <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 mb-8 transition-all" id="product-form-container">
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 mb-8" id="product-form-container">
                     <h2 id="form-title" class="text-lg font-bold text-slate-800 mb-4">নতুন প্রোডাক্ট যুক্ত করুন</h2>
                     <form id="add-product-form" class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
@@ -121,17 +114,33 @@
                             <label class="block text-sm font-medium text-slate-600 mb-1">আগের দাম (৳) (ঐচ্ছিক)</label>
                             <input type="number" id="p-old-price" class="w-full px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-blue-500">
                         </div>
-                        <div class="md:col-span-2">
+
+                        <div class="md:col-span-2 border-t border-slate-100 pt-4 mt-2">
+                            <h3 class="text-sm font-bold text-slate-700 mb-3">ছবি এবং ভিডিও লিংক</h3>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-600 mb-1">মেইন ইমেজ লিংক (URL) *</label>
+                            <input type="url" id="p-img-main" placeholder="https://..." class="w-full px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-blue-500" required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-600 mb-1">ভিডিও লিংক (YouTube) (ঐচ্ছিক)</label>
+                            <input type="url" id="p-video" placeholder="https://youtube.com/..." class="w-full px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-600 mb-1">অতিরিক্ত ইমেজ লিংক ১ (ঐচ্ছিক)</label>
+                            <input type="url" id="p-img-2" placeholder="https://..." class="w-full px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-600 mb-1">অতিরিক্ত ইমেজ লিংক ২ (ঐচ্ছিক)</label>
+                            <input type="url" id="p-img-3" placeholder="https://..." class="w-full px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-blue-500">
+                        </div>
+                        <div class="md:col-span-2 mt-2">
                             <label class="block text-sm font-medium text-slate-600 mb-1">প্রোডাক্টের বিবরণ *</label>
-                            <textarea id="p-desc" rows="2" class="w-full px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-blue-500" required></textarea>
+                            <textarea id="p-desc" rows="3" class="w-full px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-blue-500" required></textarea>
                         </div>
                         <div class="md:col-span-2 flex justify-end mt-2 space-x-3">
-                            <button type="button" id="btn-cancel-edit" onclick="cancelEditMode()" class="hidden bg-slate-500 hover:bg-slate-600 text-white font-bold py-2 px-6 rounded-lg transition-colors">
-                                বাতিল করুন
-                            </button>
-                            <button type="submit" id="btn-submit-product" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg transition-colors">
-                                প্রোডাক্ট যুক্ত করুন
-                            </button>
+                            <button type="button" id="btn-cancel-edit" onclick="cancelEditMode()" class="hidden bg-slate-500 hover:bg-slate-600 text-white font-bold py-2 px-6 rounded-lg transition-colors">বাতিল করুন</button>
+                            <button type="submit" id="btn-submit-product" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg transition-colors">প্রোডাক্ট যুক্ত করুন</button>
                         </div>
                     </form>
                 </div>
@@ -142,7 +151,7 @@
                         <table class="w-full text-left border-collapse">
                             <thead>
                                 <tr class="bg-slate-50 border-b border-slate-100 text-slate-500 text-xs uppercase tracking-wider">
-                                    <th class="px-6 py-4 font-semibold">প্রোডাক্টের নাম</th>
+                                    <th class="px-6 py-4 font-semibold">প্রোডাক্ট</th>
                                     <th class="px-6 py-4 font-semibold">ক্যাটাগরি</th>
                                     <th class="px-6 py-4 font-semibold">দাম</th>
                                     <th class="px-6 py-4 font-semibold text-right">অ্যাকশন</th>
@@ -156,18 +165,15 @@
                 </div>
 
             </div>
-
         </div>
     </main>
 
     <script type="module">
         import { db, collection, getDocs, doc, updateDoc, addDoc, deleteDoc } from './firebase-config.js';
 
-        // গ্লোবাল ভেরিয়েবল
-        let editProductId = null; // এডিট মোড ট্র্যাক করার জন্য
-        let allProductsData = {}; // ফেচ করা সব প্রোডাক্ট সাময়িকভাবে সেভ রাখার জন্য
+        let editProductId = null;
+        let allProductsData = {}; 
 
-        // ================= Tab Switching Logic =================
         window.switchTab = function(tabName) {
             const secOrders = document.getElementById('section-orders');
             const secProducts = document.getElementById('section-products');
@@ -179,33 +185,26 @@
             const inactiveClass = "hover:bg-slate-800 hover:text-white".split(" ");
 
             if (tabName === 'orders') {
-                secOrders.classList.remove('hidden');
-                secProducts.classList.add('hidden');
+                secOrders.classList.remove('hidden'); secProducts.classList.add('hidden');
                 title.innerText = "অর্ডার ওভারভিউ";
-                
                 menuOrders.classList.add(...activeClass); menuOrders.classList.remove(...inactiveClass);
                 menuProducts.classList.add(...inactiveClass); menuProducts.classList.remove(...activeClass);
                 fetchOrders();
             } else {
-                secOrders.classList.add('hidden');
-                secProducts.classList.remove('hidden');
+                secOrders.classList.add('hidden'); secProducts.classList.remove('hidden');
                 title.innerText = "প্রোডাক্ট ম্যানেজমেন্ট";
-
                 menuProducts.classList.add(...activeClass); menuProducts.classList.remove(...inactiveClass);
                 menuOrders.classList.add(...inactiveClass); menuOrders.classList.remove(...activeClass);
                 fetchProducts();
             }
         }
 
-        // ================= Orders Management =================
         async function fetchOrders() {
             const tableBody = document.getElementById('orders-table-body');
             try {
                 const querySnapshot = await getDocs(collection(db, "orders"));
                 if(querySnapshot.empty) { tableBody.innerHTML = '<tr><td colspan="4" class="py-10 text-center">কোনো অর্ডার নেই।</td></tr>'; return; }
-
-                let html = '';
-                let total = 0, pending = 0, delivered = 0;
+                let html = ''; let total = 0, pending = 0, delivered = 0;
                 
                 querySnapshot.forEach((docSnap) => {
                     const order = docSnap.data();
@@ -247,27 +246,33 @@
             catch (e) { alert("Failed to update status!"); el.disabled = false; }
         };
 
-        // ================= Products Management =================
         async function fetchProducts() {
             const tableBody = document.getElementById('products-table-body');
             try {
                 const querySnapshot = await getDocs(collection(db, "products"));
                 if(querySnapshot.empty) { 
                     tableBody.innerHTML = '<tr><td colspan="4" class="py-10 text-center">কোনো প্রোডাক্ট যুক্ত করা হয়নি।</td></tr>'; 
-                    allProductsData = {};
-                    return; 
+                    allProductsData = {}; return; 
                 }
 
                 let html = '';
-                allProductsData = {}; // রিসেট করা হলো
+                allProductsData = {};
 
                 querySnapshot.forEach((docSnap) => {
                     const p = docSnap.data();
-                    allProductsData[docSnap.id] = p; // গ্লোবালি ডেটা সেভ রাখা হলো যাতে এডিট করার সময় সহজে টানা যায়
+                    allProductsData[docSnap.id] = p;
+
+                    // মেইন ইমেজ দেখানোর ব্যবস্থা
+                    const imgPreview = p.imgMain ? `<img src="${p.imgMain}" class="w-10 h-10 rounded object-cover border border-slate-200">` : `<div class="w-10 h-10 rounded bg-slate-200 flex items-center justify-center text-xs text-slate-500 border border-slate-300">Img</div>`;
 
                     html += `
                         <tr class="hover:bg-slate-50 transition border-b border-slate-100">
-                            <td class="px-6 py-4 font-bold text-slate-800">${p.name}</td>
+                            <td class="px-6 py-4">
+                                <div class="flex items-center gap-3">
+                                    ${imgPreview}
+                                    <span class="font-bold text-slate-800">${p.name}</span>
+                                </div>
+                            </td>
                             <td class="px-6 py-4"><span class="bg-blue-50 text-blue-600 px-3 py-1 rounded-full text-xs font-bold">${p.category}</span></td>
                             <td class="px-6 py-4 font-bold text-slate-800">৳${p.price}</td>
                             <td class="px-6 py-4 text-right space-x-2">
@@ -281,7 +286,6 @@
             } catch (error) { console.error(error); }
         }
 
-        // ফর্ম সাবমিট (Add & Update)
         document.getElementById('add-product-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             const btn = document.getElementById('btn-submit-product');
@@ -294,44 +298,43 @@
                 price: document.getElementById('p-price').value,
                 oldPrice: document.getElementById('p-old-price').value || "",
                 desc: document.getElementById('p-desc').value,
+                imgMain: document.getElementById('p-img-main').value,
+                img2: document.getElementById('p-img-2').value || "",
+                img3: document.getElementById('p-img-3').value || "",
+                videoLink: document.getElementById('p-video').value || ""
             };
 
             try {
                 if (editProductId) {
-                    // Update Product
                     await updateDoc(doc(db, "products", editProductId), productData);
                     alert("প্রোডাক্ট সফলভাবে আপডেট হয়েছে!");
-                    cancelEditMode(); // ফর্ম আগের অবস্থায় ফিরিয়ে আনা
+                    cancelEditMode();
                 } else {
-                    // Add New Product
                     productData.createdAt = new Date().toISOString();
                     await addDoc(collection(db, "products"), productData);
                     alert("প্রোডাক্ট সফলভাবে যুক্ত হয়েছে!");
                     document.getElementById('add-product-form').reset();
                 }
-                fetchProducts(); // টেবিল রিলোড
-            } catch (error) { 
-                alert("অপারেশন সম্পন্ন করতে সমস্যা হয়েছে!"); 
-                console.error(error); 
-            }
+                fetchProducts();
+            } catch (error) { alert("অপারেশন সম্পন্ন করতে সমস্যা হয়েছে!"); console.error(error); }
             btn.innerText = originalText; btn.disabled = false;
         });
 
-        // প্রোডাক্ট এডিট মোডে আনা
         window.editProductItem = function(id) {
             const p = allProductsData[id];
             if(!p) return;
 
-            editProductId = id; // এডিট মোড অন করা হলো
-
-            // ফর্মে ডেটা বসানো
+            editProductId = id;
             document.getElementById('p-name').value = p.name;
             document.getElementById('p-category').value = p.category;
             document.getElementById('p-price').value = p.price;
             document.getElementById('p-old-price').value = p.oldPrice || "";
             document.getElementById('p-desc').value = p.desc;
+            document.getElementById('p-img-main').value = p.imgMain || "";
+            document.getElementById('p-img-2').value = p.img2 || "";
+            document.getElementById('p-img-3').value = p.img3 || "";
+            document.getElementById('p-video').value = p.videoLink || "";
             
-            // UI চেঞ্জ করা
             document.getElementById('form-title').innerText = "প্রোডাক্ট আপডেট করুন";
             const submitBtn = document.getElementById('btn-submit-product');
             submitBtn.innerText = "আপডেট করুন";
@@ -339,16 +342,12 @@
             submitBtn.classList.replace('hover:bg-blue-700', 'hover:bg-emerald-700');
             document.getElementById('btn-cancel-edit').classList.remove('hidden');
 
-            // ফর্মের কাছে স্ক্রল করা
             document.getElementById('product-form-container').scrollIntoView({behavior: 'smooth'});
         };
 
-        // এডিট বাতিল করে আগের Add মোডে ফিরে যাওয়া
         window.cancelEditMode = function() {
             editProductId = null;
             document.getElementById('add-product-form').reset();
-            
-            // UI আগের অবস্থায় আনা
             document.getElementById('form-title').innerText = "নতুন প্রোডাক্ট যুক্ত করুন";
             const submitBtn = document.getElementById('btn-submit-product');
             submitBtn.innerText = "প্রোডাক্ট যুক্ত করুন";
@@ -357,17 +356,13 @@
             document.getElementById('btn-cancel-edit').classList.add('hidden');
         };
 
-        // প্রোডাক্ট ডিলিট করা
         window.deleteProductItem = async function(id) {
             if(confirm("আপনি কি নিশ্চিত যে প্রোডাক্টটি ডিলিট করতে চান?")) {
-                try { 
-                    await deleteDoc(doc(db, "products", id)); 
-                    fetchProducts(); 
-                } catch (e) { alert("ডিলিট করতে সমস্যা হয়েছে!"); }
+                try { await deleteDoc(doc(db, "products", id)); fetchProducts(); } 
+                catch (e) { alert("ডিলিট করতে সমস্যা হয়েছে!"); }
             }
         };
 
-        // Initialize First View
         fetchOrders();
     </script>
 </body>
