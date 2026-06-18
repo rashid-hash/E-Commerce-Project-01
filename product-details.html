@@ -132,7 +132,7 @@
                         mainImgContainer.innerHTML = `<div class="w-full h-80 md:h-96 bg-slate-100 rounded-lg flex items-center justify-center text-slate-400 border border-slate-200">নো ইমেজ</div>`;
                     }
 
-                    // থাম্বনেইল তৈরি করা (যে কয়টি ছবি দেওয়া থাকবে)
+                    // থাম্বনেইল তৈরি করা
                     const images = [product.imgMain, product.img2, product.img3].filter(Boolean);
                     let thumbsHtml = '';
                     images.forEach((img) => {
@@ -169,18 +169,84 @@
             submitBtn.innerText = "অর্ডার প্রসেস হচ্ছে...";
             submitBtn.disabled = true;
 
+            const pName = document.getElementById('prod-name').innerText;
+            const pPrice = document.getElementById('prod-price').innerText;
+            const cName = document.getElementById('customer-name').value;
+            const cPhone = document.getElementById('customer-phone').value;
+            const dArea = document.getElementById('delivery-area').value;
+            const cAddress = document.getElementById('customer-address').value;
+
             try {
+                // ১. ফায়ারবেসে ডেটা সেভ করা
                 await addDoc(collection(db, "orders"), {
                     product_id: document.getElementById('ordered-product-id').value,
-                    product_name: document.getElementById('prod-name').innerText,
-                    price: document.getElementById('prod-price').innerText,
-                    customer_name: document.getElementById('customer-name').value,
-                    customer_phone: document.getElementById('customer-phone').value,
-                    delivery_area: document.getElementById('delivery-area').value,
-                    customer_address: document.getElementById('customer-address').value,
+                    product_name: pName,
+                    price: pPrice,
+                    customer_name: cName,
+                    customer_phone: cPhone,
+                    delivery_area: dArea,
+                    customer_address: cAddress,
                     status: "Pending", 
                     order_date: new Date().toISOString()
                 });
+
+                // ২. টেলিগ্রাম বটে নোটিফিকেশন পাঠানো
+                // সতর্কতা: এখানে আপনার আসল টোকেন এবং আইডি বসান
+                const botToken = "8487744150:AAF-ett0rDB4TvoQzOLfwgG7MbBxrfaK3nI"; 
+                const chatId = "5892287959"; 
+                
+                const tgMessage = `🛒 *নতুন অর্ডার এসেছে!*\n\n📦 *প্রোডাক্ট:* ${pName}\n💰 *দাম:* ${pPrice}\n\n👤 *কাস্টমার:* ${cName}\n📞 *ফোন:* ${cPhone}\n📍 *ঠিকানা:* ${cAddress}\n🚚 *ডেলিভারি এরিয়া:* ${dArea}`;
+
+                // টেলিগ্রাম API কল (নতুন ডিবাগিং সিস্টেমসহ)
+                if(botToken && chatId && botToken !== "8487744150:AAF-ett0rDB4TvoQzOLfwgG7MbBxrfaK3nI" && chatId !== "5892287959") {
+                    const tgResponse = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            chat_id: chatId,
+                            text: tgMessage,
+                            parse_mode: 'Markdown'
+                        })
+                    });
+                    
+                    const tgResult = await tgResponse.json();
+                    
+                    // যদি টেলিগ্রাম মেসেজটি এক্সেপ্ট না করে
+                    if(!tgResult.ok) {
+                        alert("ফায়ারবেসে অর্ডার সেভ হয়েছে, কিন্তু টেলিগ্রাম এরর: " + tgResult.description);
+                        console.error("Telegram API Error:", tgResult);
+                    }
+                }
+
+                alert("ধন্যবাদ! আপনার অর্ডারটি সফলভাবে সম্পন্ন হয়েছে। খুব শীঘ্রই আমাদের প্রতিনিধি আপনার সাথে যোগাযোগ করবে।");
+                window.location.href = "index.html";
+
+            } catch (error) {
+                alert("দুঃখিত, কোনো একটি সমস্যা হয়েছে। দয়া করে আবার চেষ্টা করুন।");
+                console.error("System Error: ", error);
+                submitBtn.innerText = "অর্ডার কনফার্ম করুন";
+                submitBtn.disabled = false;
+            }
+        });
+
+                // ২. টেলিগ্রাম বটে নোটিফিকেশন পাঠানো
+                const botToken = "8487744150:AAF-ett0rDB4TvoQzOLfwgG7MbBxrfaK3nI"; // BotFather থেকে পাওয়া টোকেন
+                const chatId = "5892287959"; // আপনার টেলিগ্রাম চ্যাট আইডি
+                
+                const tgMessage = `🛒 *নতুন অর্ডার এসেছে!*\n\n📦 *প্রোডাক্ট:* ${pName}\n💰 *দাম:* ${pPrice}\n\n👤 *কাস্টমার:* ${cName}\n📞 *ফোন:* ${cPhone}\n📍 *ঠিকানা:* ${cAddress}\n🚚 *ডেলিভারি এরিয়া:* ${dArea}`;
+
+                // টেলিগ্রাম API কল
+                if(botToken !== "8487744150:AAF-ett0rDB4TvoQzOLfwgG7MbBxrfaK3nI" && chatId !== "5892287959") {
+                    await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            chat_id: chatId,
+                            text: tgMessage,
+                            parse_mode: 'Markdown'
+                        })
+                    });
+                }
 
                 alert("ধন্যবাদ! আপনার অর্ডারটি সফলভাবে সম্পন্ন হয়েছে। খুব শীঘ্রই আমাদের প্রতিনিধি আপনার সাথে যোগাযোগ করবে।");
                 window.location.href = "index.html";

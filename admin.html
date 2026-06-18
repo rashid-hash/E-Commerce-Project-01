@@ -34,7 +34,7 @@
         </nav>
         <div class="p-6 border-t border-slate-800">
             <a href="index.html" class="flex items-center gap-3 text-slate-400 hover:text-white transition-all">
-                🌐 ওয়েবসাইটে যান
+                🌐 ওয়েবসাইটে যান
             </a>
         </div>
     </aside>
@@ -99,7 +99,7 @@
                             <label class="block text-sm font-medium text-slate-600 mb-1">ক্যাটাগরি *</label>
                             <select id="p-category" class="w-full px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-blue-500" required>
                                 <option value="" disabled selected>সিলেক্ট করুন</option>
-                                <option value="বেবি কেয়ার">বেবি কেয়ার</option>
+                                <option value="বেবি কেয়ার">বেবি কেয়ার</option>
                                 <option value="হোম & কিচেন">হোম & কিচেন</option>
                                 <option value="লাইফস্টাইল">লাইফস্টাইল</option>
                                 <option value="বাগান & আউটডোর">বাগান & আউটডোর</option>
@@ -251,7 +251,7 @@
             try {
                 const querySnapshot = await getDocs(collection(db, "products"));
                 if(querySnapshot.empty) { 
-                    tableBody.innerHTML = '<tr><td colspan="4" class="py-10 text-center">কোনো প্রোডাক্ট যুক্ত করা হয়নি।</td></tr>'; 
+                    tableBody.innerHTML = '<tr><td colspan="4" class="py-10 text-center">কোনো প্রোডাক্ট যুক্ত করা হয়নি।</td></tr>'; 
                     allProductsData = {}; return; 
                 }
 
@@ -262,7 +262,6 @@
                     const p = docSnap.data();
                     allProductsData[docSnap.id] = p;
 
-                    // মেইন ইমেজ দেখানোর ব্যবস্থা
                     const imgPreview = p.imgMain ? `<img src="${p.imgMain}" class="w-10 h-10 rounded object-cover border border-slate-200">` : `<div class="w-10 h-10 rounded bg-slate-200 flex items-center justify-center text-xs text-slate-500 border border-slate-300">Img</div>`;
 
                     html += `
@@ -276,6 +275,7 @@
                             <td class="px-6 py-4"><span class="bg-blue-50 text-blue-600 px-3 py-1 rounded-full text-xs font-bold">${p.category}</span></td>
                             <td class="px-6 py-4 font-bold text-slate-800">৳${p.price}</td>
                             <td class="px-6 py-4 text-right space-x-2">
+                                <button onclick="copyProductItem('${docSnap.id}')" class="text-amber-600 hover:bg-amber-50 px-3 py-1 rounded transition text-sm font-bold border border-amber-200" title="প্রোডাক্টটি কপি করুন">কপি</button>
                                 <button onclick="editProductItem('${docSnap.id}')" class="text-blue-600 hover:bg-blue-50 px-3 py-1 rounded transition text-sm font-bold border border-blue-200">এডিট</button>
                                 <button onclick="deleteProductItem('${docSnap.id}')" class="text-red-500 hover:bg-red-50 px-3 py-1 rounded transition text-sm font-bold border border-red-200">ডিলিট</button>
                             </td>
@@ -307,18 +307,52 @@
             try {
                 if (editProductId) {
                     await updateDoc(doc(db, "products", editProductId), productData);
-                    alert("প্রোডাক্ট সফলভাবে আপডেট হয়েছে!");
+                    alert("প্রোডাক্ট সফলভাবে আপডেট হয়েছে!");
                     cancelEditMode();
                 } else {
                     productData.createdAt = new Date().toISOString();
                     await addDoc(collection(db, "products"), productData);
-                    alert("প্রোডাক্ট সফলভাবে যুক্ত হয়েছে!");
+                    alert("প্রোডাক্ট সফলভাবে যুক্ত হয়েছে!");
                     document.getElementById('add-product-form').reset();
                 }
                 fetchProducts();
-            } catch (error) { alert("অপারেশন সম্পন্ন করতে সমস্যা হয়েছে!"); console.error(error); }
+            } catch (error) { alert("অপারেশন সম্পন্ন করতে সমস্যা হয়েছে!"); console.error(error); }
             btn.innerText = originalText; btn.disabled = false;
         });
+
+        // নতুন কপি করার ফাংশন
+        window.copyProductItem = async function(id) {
+            const p = allProductsData[id];
+            if(!p) return;
+
+            // ইউজারকে কনফার্মেশন মেসেজ দেখানো
+            if(confirm("আপনি কি এই প্রোডাক্টের একটি কপি তৈরি করতে চান?")) {
+                try {
+                    // প্রোডাক্টের একটি নতুন কপি ডেটা তৈরি (নামের শেষে '(Copy)' যোগ করা হলো বোঝার সুবিধার জন্য)
+                    const copiedData = {
+                        name: p.name + " (Copy)",
+                        category: p.category,
+                        price: p.price,
+                        oldPrice: p.oldPrice || "",
+                        desc: p.desc,
+                        imgMain: p.imgMain || "",
+                        img2: p.img2 || "",
+                        img3: p.img3 || "",
+                        videoLink: p.videoLink || "",
+                        createdAt: new Date().toISOString()
+                    };
+
+                    // ফায়ারবেসে নতুন করে অ্যাড করা
+                    await addDoc(collection(db, "products"), copiedData);
+                    alert("প্রোডাক্ট সফলভাবে কপি হয়েছে!");
+                    fetchProducts(); // টেবিল আপডেট করা
+
+                } catch (error) {
+                    alert("কপি করতে সমস্যা হয়েছে!");
+                    console.error(error);
+                }
+            }
+        };
 
         window.editProductItem = function(id) {
             const p = allProductsData[id];
@@ -359,7 +393,7 @@
         window.deleteProductItem = async function(id) {
             if(confirm("আপনি কি নিশ্চিত যে প্রোডাক্টটি ডিলিট করতে চান?")) {
                 try { await deleteDoc(doc(db, "products", id)); fetchProducts(); } 
-                catch (e) { alert("ডিলিট করতে সমস্যা হয়েছে!"); }
+                catch (e) { alert("ডিলিট করতে সমস্যা হয়েছে!"); }
             }
         };
 
