@@ -31,6 +31,9 @@
             <button id="menu-products" onclick="switchTab('products')" class="w-full flex items-center gap-3 px-4 py-3 hover:bg-slate-800 hover:text-white rounded-xl font-medium transition-all">
                 🛍️ প্রোডাক্ট ম্যানেজমেন্ট
             </button>
+            <button id="menu-telegram" onclick="switchTab('telegram')" class="w-full flex items-center gap-3 px-4 py-3 hover:bg-slate-800 hover:text-white rounded-xl font-medium transition-all">
+                🤖 টেলিগ্রাম বট
+            </button>
         </nav>
         <div class="p-6 border-t border-slate-800">
             <a href="index.html" class="flex items-center gap-3 text-slate-400 hover:text-white transition-all">
@@ -87,7 +90,6 @@
             </div>
 
             <div id="section-products" class="hidden">
-                
                 <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 mb-8" id="product-form-container">
                     <h2 id="form-title" class="text-lg font-bold text-slate-800 mb-4">নতুন প্রোডাক্ট যুক্ত করুন</h2>
                     <form id="add-product-form" class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -163,13 +165,36 @@
                         </table>
                     </div>
                 </div>
-
             </div>
+
+            <div id="section-telegram" class="hidden">
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 max-w-2xl">
+                    <h2 class="text-xl font-bold text-slate-800 mb-2">টেলিগ্রাম বট ইন্টিগ্রেশন</h2>
+                    <p class="text-sm text-slate-500 mb-6">এখানে আপনার টেলিগ্রাম বটের টোকেন এবং চ্যাট আইডি সেভ করে রাখলে, নতুন অর্ডারের নোটিফিকেশন সরাসরি আপনার টেলিগ্রামে চলে যাবে।</p>
+                    
+                    <form id="telegram-settings-form" class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">বট টোকেন (Bot Token) *</label>
+                            <input type="text" id="tg-bot-token" placeholder="যেমন: 8487744150:AAF-ett..." class="w-full px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-blue-500" required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">চ্যাট আইডি (Chat ID) *</label>
+                            <input type="text" id="tg-chat-id" placeholder="যেমন: 5892287959" class="w-full px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-blue-500" required>
+                        </div>
+                        <div class="pt-4">
+                            <button type="submit" id="btn-save-tg" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg transition-colors">
+                                সেটিংস সেভ করুন
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
         </div>
     </main>
 
     <script type="module">
-        import { db, collection, getDocs, doc, updateDoc, addDoc, deleteDoc } from './firebase-config.js';
+        import { db, collection, getDocs, doc, updateDoc, addDoc, deleteDoc, setDoc, getDoc } from './firebase-config.js';
 
         let editProductId = null;
         let allProductsData = {}; 
@@ -177,28 +202,78 @@
         window.switchTab = function(tabName) {
             const secOrders = document.getElementById('section-orders');
             const secProducts = document.getElementById('section-products');
+            const secTelegram = document.getElementById('section-telegram');
             const menuOrders = document.getElementById('menu-orders');
             const menuProducts = document.getElementById('menu-products');
+            const menuTelegram = document.getElementById('menu-telegram');
             const title = document.getElementById('page-title');
 
             const activeClass = "bg-blue-600 text-white shadow-lg shadow-blue-600/20".split(" ");
             const inactiveClass = "hover:bg-slate-800 hover:text-white".split(" ");
 
+            // Reset all
+            secOrders.classList.add('hidden'); secProducts.classList.add('hidden'); secTelegram.classList.add('hidden');
+            menuOrders.classList.remove(...activeClass); menuOrders.classList.add(...inactiveClass);
+            menuProducts.classList.remove(...activeClass); menuProducts.classList.add(...inactiveClass);
+            menuTelegram.classList.remove(...activeClass); menuTelegram.classList.add(...inactiveClass);
+
             if (tabName === 'orders') {
-                secOrders.classList.remove('hidden'); secProducts.classList.add('hidden');
+                secOrders.classList.remove('hidden');
                 title.innerText = "অর্ডার ওভারভিউ";
                 menuOrders.classList.add(...activeClass); menuOrders.classList.remove(...inactiveClass);
-                menuProducts.classList.add(...inactiveClass); menuProducts.classList.remove(...activeClass);
                 fetchOrders();
-            } else {
-                secOrders.classList.add('hidden'); secProducts.classList.remove('hidden');
+            } else if (tabName === 'products') {
+                secProducts.classList.remove('hidden');
                 title.innerText = "প্রোডাক্ট ম্যানেজমেন্ট";
                 menuProducts.classList.add(...activeClass); menuProducts.classList.remove(...inactiveClass);
-                menuOrders.classList.add(...inactiveClass); menuOrders.classList.remove(...activeClass);
                 fetchProducts();
+            } else if (tabName === 'telegram') {
+                secTelegram.classList.remove('hidden');
+                title.innerText = "টেলিগ্রাম সেটআপ";
+                menuTelegram.classList.add(...activeClass); menuTelegram.classList.remove(...inactiveClass);
+                loadTelegramSettings(); // নতুন ফাংশন
             }
         }
 
+        // টেলিগ্রাম সেটিংস লোড করা
+        async function loadTelegramSettings() {
+            try {
+                const docRef = doc(db, "settings", "telegram");
+                const docSnap = await getDoc(docRef);
+                if (docSnap.exists()) {
+                    document.getElementById('tg-bot-token').value = docSnap.data().botToken || '';
+                    document.getElementById('tg-chat-id').value = docSnap.data().chatId || '';
+                }
+            } catch (error) {
+                console.error("Error loading Telegram settings:", error);
+            }
+        }
+
+        // টেলিগ্রাম সেটিংস সেভ করা
+        document.getElementById('telegram-settings-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('btn-save-tg');
+            btn.innerText = "সেভ হচ্ছে..."; btn.disabled = true;
+
+            const botToken = document.getElementById('tg-bot-token').value;
+            const chatId = document.getElementById('tg-chat-id').value;
+
+            try {
+                // "settings" কালেকশনের "telegram" ডকুমেন্টে ডেটা সেভ করা হচ্ছে
+                await setDoc(doc(db, "settings", "telegram"), {
+                    botToken: botToken,
+                    chatId: chatId,
+                    updatedAt: new Date().toISOString()
+                });
+                alert("টেলিগ্রাম সেটিংস সফলভাবে সেভ হয়েছে!");
+            } catch(error) {
+                console.error(error);
+                alert("সেটিংস সেভ করতে সমস্যা হয়েছে!");
+            }
+            btn.innerText = "সেটিংস সেভ করুন"; btn.disabled = false;
+        });
+
+        // ================= 기존 (Existing) Functions =================
         async function fetchOrders() {
             const tableBody = document.getElementById('orders-table-body');
             try {
@@ -320,37 +395,16 @@
             btn.innerText = originalText; btn.disabled = false;
         });
 
-        // নতুন কপি করার ফাংশন
         window.copyProductItem = async function(id) {
             const p = allProductsData[id];
             if(!p) return;
-
-            // ইউজারকে কনফার্মেশন মেসেজ দেখানো
             if(confirm("আপনি কি এই প্রোডাক্টের একটি কপি তৈরি করতে চান?")) {
                 try {
-                    // প্রোডাক্টের একটি নতুন কপি ডেটা তৈরি (নামের শেষে '(Copy)' যোগ করা হলো বোঝার সুবিধার জন্য)
-                    const copiedData = {
-                        name: p.name + " (Copy)",
-                        category: p.category,
-                        price: p.price,
-                        oldPrice: p.oldPrice || "",
-                        desc: p.desc,
-                        imgMain: p.imgMain || "",
-                        img2: p.img2 || "",
-                        img3: p.img3 || "",
-                        videoLink: p.videoLink || "",
-                        createdAt: new Date().toISOString()
-                    };
-
-                    // ফায়ারবেসে নতুন করে অ্যাড করা
+                    const copiedData = { ...p, name: p.name + " (Copy)", createdAt: new Date().toISOString() };
                     await addDoc(collection(db, "products"), copiedData);
                     alert("প্রোডাক্ট সফলভাবে কপি হয়েছে!");
-                    fetchProducts(); // টেবিল আপডেট করা
-
-                } catch (error) {
-                    alert("কপি করতে সমস্যা হয়েছে!");
-                    console.error(error);
-                }
+                    fetchProducts();
+                } catch (error) { alert("কপি করতে সমস্যা হয়েছে!"); }
             }
         };
 

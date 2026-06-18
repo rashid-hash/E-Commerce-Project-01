@@ -190,31 +190,33 @@
                     order_date: new Date().toISOString()
                 });
 
-                // ২. টেলিগ্রাম বটে নোটিফিকেশন পাঠানো
-                const botToken = "8487744150:AAF-ett0rDB4TvoQzOLfwgG7MbBxrfaK3nI"; 
-                const chatId = "5892287959"; 
-                
-                const tgMessage = `🛒 *নতুন অর্ডার এসেছে!*\n\n📦 *প্রোডাক্ট:* ${pName}\n💰 *দাম:* ${pPrice}\n\n👤 *কাস্টমার:* ${cName}\n📞 *ফোন:* ${cPhone}\n📍 *ঠিকানা:* ${cAddress}\n🚚 *ডেলিভারি এরিয়া:* ${dArea}`;
+                // ২. ফায়ারবেস থেকে টেলিগ্রাম সেটিংস আনা এবং মেসেজ পাঠানো
+                try {
+                    const tgSettingsRef = doc(db, "settings", "telegram");
+                    const tgSnap = await getDoc(tgSettingsRef);
+                    
+                    if (tgSnap.exists()) {
+                        const tgData = tgSnap.data();
+                        const botToken = tgData.botToken;
+                        const chatId = tgData.chatId;
 
-                // টেলিগ্রাম API কল (শর্ত পরিবর্তন করা হয়েছে)
-                if(botToken && chatId) {
-                    const tgResponse = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            chat_id: chatId,
-                            text: tgMessage,
-                            parse_mode: 'Markdown'
-                        })
-                    });
-                    
-                    const tgResult = await tgResponse.json();
-                    
-                    // যদি টেলিগ্রাম মেসেজটি এক্সেপ্ট না করে
-                    if(!tgResult.ok) {
-                        console.error("Telegram API Error:", tgResult);
-                        alert("অর্ডার সেভ হয়েছে, কিন্তু টেলিগ্রামে মেসেজ যায়নি। কারণ: " + tgResult.description);
+                        if (botToken && chatId) {
+                            const tgMessage = `🛒 *নতুন অর্ডার এসেছে!*\n\n📦 *প্রোডাক্ট:* ${pName}\n💰 *দাম:* ${pPrice}\n\n👤 *কাস্টমার:* ${cName}\n📞 *ফোন:* ${cPhone}\n📍 *ঠিকানা:* ${cAddress}\n🚚 *ডেলিভারি এরিয়া:* ${dArea}`;
+
+                            await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({
+                                    chat_id: chatId,
+                                    text: tgMessage,
+                                    parse_mode: 'Markdown'
+                                })
+                            });
+                        }
                     }
+                } catch (tgError) {
+                    console.error("টেলিগ্রাম মেসেজ পাঠাতে সমস্যা হয়েছে:", tgError);
+                    // টেলিগ্রামে সমস্যা হলেও কাস্টমারকে সাকসেস মেসেজ দেখাবে
                 }
 
                 alert("ধন্যবাদ! আপনার অর্ডারটি সফলভাবে সম্পন্ন হয়েছে। খুব শীঘ্রই আমাদের প্রতিনিধি আপনার সাথে যোগাযোগ করবে।");
