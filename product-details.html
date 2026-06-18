@@ -9,6 +9,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
         tailwind.config = {
@@ -93,7 +95,7 @@
     </section>
 
     <footer class="bg-gray-900 text-gray-300 py-6 border-t-4 border-blue-600 text-center">
-        <p class="text-sm">&copy; ২০২৬ ShopLogo. সর্বস্বত্ব সংরক্ষিত。</p>
+        <p class="text-sm">&copy; ২০২৬ ShopLogo. সর্বস্বত্ব সংরক্ষিত।</p>
     </footer>
 
     <script type="module">
@@ -107,14 +109,12 @@
                 document.getElementById('prod-name').innerText = "ভুল প্রোডাক্ট লিংক!";
                 return;
             }
-
             try {
                 const docRef = doc(db, "products", productId);
                 const docSnap = await getDoc(docRef);
 
                 if (docSnap.exists()) {
                     const product = docSnap.data();
-                    
                     document.getElementById('prod-category').innerText = product.category;
                     document.getElementById('prod-name').innerText = product.name;
                     document.getElementById('prod-price').innerText = `৳${product.price}`;
@@ -122,7 +122,6 @@
                     document.getElementById('prod-desc').innerText = product.desc;
                     document.getElementById('ordered-product-id').value = productId;
 
-                    // গ্যালারি ইমেজ সেট করা
                     const mainImgContainer = document.getElementById('main-image-container');
                     const thumbsContainer = document.getElementById('thumbnails-container');
                     
@@ -132,7 +131,6 @@
                         mainImgContainer.innerHTML = `<div class="w-full h-80 md:h-96 bg-slate-100 rounded-lg flex items-center justify-center text-slate-400 border border-slate-200">নো ইমেজ</div>`;
                     }
 
-                    // থাম্বনেইল তৈরি করা
                     const images = [product.imgMain, product.img2, product.img3].filter(Boolean);
                     let thumbsHtml = '';
                     images.forEach((img) => {
@@ -140,7 +138,6 @@
                     });
                     thumbsContainer.innerHTML = thumbsHtml;
 
-                    // ভিডিও লিংক বাটন তৈরি করা
                     const videoContainer = document.getElementById('video-container');
                     if(product.videoLink) {
                         videoContainer.innerHTML = `
@@ -149,7 +146,6 @@
                                 প্রোডাক্টের ভিডিও দেখুন
                             </a>`;
                     }
-
                 } else {
                     document.getElementById('prod-name').innerText = "প্রোডাক্টটি খুঁজে পাওয়া যায়নি!";
                 }
@@ -177,7 +173,6 @@
             const cAddress = document.getElementById('customer-address').value;
 
             try {
-                // ১. ফায়ারবেসে ডেটা সেভ করা
                 await addDoc(collection(db, "orders"), {
                     product_id: document.getElementById('ordered-product-id').value,
                     product_name: pName,
@@ -190,11 +185,9 @@
                     order_date: new Date().toISOString()
                 });
 
-                // ২. ফায়ারবেস থেকে টেলিগ্রাম সেটিংস আনা এবং মেসেজ পাঠানো
                 try {
                     const tgSettingsRef = doc(db, "settings", "telegram");
                     const tgSnap = await getDoc(tgSettingsRef);
-                    
                     if (tgSnap.exists()) {
                         const tgData = tgSnap.data();
                         const botToken = tgData.botToken;
@@ -206,25 +199,34 @@
                             await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
                                 method: 'POST',
                                 headers: { 'Content-Type': 'application/json' },
-                                body: JSON.stringify({
-                                    chat_id: chatId,
-                                    text: tgMessage,
-                                    parse_mode: 'Markdown'
-                                })
+                                body: JSON.stringify({ chat_id: chatId, text: tgMessage, parse_mode: 'Markdown' })
                             });
                         }
                     }
                 } catch (tgError) {
-                    console.error("টেলিগ্রাম মেসেজ পাঠাতে সমস্যা হয়েছে:", tgError);
-                    // টেলিগ্রামে সমস্যা হলেও কাস্টমারকে সাকসেস মেসেজ দেখাবে
+                    console.error("টেলিগ্রাম মেসেজ পাঠাতে সমস্যা:", tgError);
                 }
 
-                alert("ধন্যবাদ! আপনার অর্ডারটি সফলভাবে সম্পন্ন হয়েছে। খুব শীঘ্রই আমাদের প্রতিনিধি আপনার সাথে যোগাযোগ করবে।");
-                window.location.href = "index.html";
+                // SweetAlert Success Message
+                Swal.fire({
+                    title: 'অর্ডার সফল হয়েছে!',
+                    text: 'ধন্যবাদ! খুব শীঘ্রই আমাদের প্রতিনিধি আপনার সাথে যোগাযোগ করবে।',
+                    icon: 'success',
+                    confirmButtonColor: '#f97316',
+                    confirmButtonText: 'ওকে'
+                }).then(() => {
+                    window.location.href = "index.html";
+                });
 
             } catch (error) {
                 console.error("System Error: ", error);
-                alert("দুঃখিত, কোনো একটি সমস্যা হয়েছে। দয়া করে আবার চেষ্টা করুন।");
+                // SweetAlert Error Message
+                Swal.fire({
+                    title: 'দুঃখিত!',
+                    text: 'কোনো একটি সমস্যা হয়েছে। দয়া করে আবার চেষ্টা করুন।',
+                    icon: 'error',
+                    confirmButtonColor: '#f97316'
+                });
                 submitBtn.innerText = "অর্ডার কনফার্ম করুন";
                 submitBtn.disabled = false;
             }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="bn" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,30 +12,35 @@
 
     <script>
         tailwind.config = {
-            theme: {
-                extend: { fontFamily: { sans: ['"Hind Siliguri"', 'sans-serif'], } }
-            }
+            theme: { extend: { fontFamily: { sans: ['"Hind Siliguri"', 'sans-serif'], } } }
         }
     </script>
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans">
 
+    <!-- Navbar -->
     <header class="bg-white shadow-md sticky top-0 z-50">
         <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <a href="index.html" class="text-2xl font-bold text-blue-600">Shop<span class="text-orange-500">Logo</span></a>
+            <a href="#" class="text-2xl font-bold text-blue-600">Shop<span class="text-orange-500">Logo</span></a>
+            
             <nav class="hidden md:flex space-x-6 font-medium">
-                <a href="#Home" class="text-blue-600 hover:text-orange-500 transition">Home</a>
-                <a href="#trending" class="hover:text-orange-500 transition">Trending Products</a>
-                <a href="#top-selling" class="hover:text-orange-500 transition">Top Selling</a>
-                <a href="#about" class="hover:text-orange-500 transition">About</a>
-                <a href="#contact" class="hover:text-orange-500 transition">Contact</a>
+                <a href="#" class="text-blue-600 hover:text-orange-500 transition">হোম</a>
+                <a href="#trending" class="hover:text-orange-500 transition">ট্রেন্ডিং</a>
+                <a href="#top-selling" class="hover:text-orange-500 transition">টপ সেলিং</a>
+                <a href="#about" class="hover:text-orange-500 transition">আমাদের সম্পর্কে</a>
+                <a href="#contact" class="hover:text-orange-500 transition">যোগাযোগ</a>
             </nav>
+            
             <div class="flex items-center space-x-4">
-                <button class="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600 transition shadow">Cart (0)</button>
+                <a href="#all-products" class="bg-orange-500 text-white px-5 py-2 rounded-full font-bold hover:bg-orange-600 transition shadow-md flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+                    শপিং করুন
+                </a>
             </div>
         </div>
     </header>
 
+    <!-- Hero Section -->
     <section class="bg-blue-50 py-12 md:py-20 overflow-hidden">
         <div class="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between">
             <div class="md:w-1/2 text-center md:text-left mb-12 md:mb-0 relative z-10">
@@ -59,22 +64,57 @@
         </div>
     </section>
 
-    <section class="py-12 bg-white">
+    <!-- Categories -->
+    <section id="categories-section" class="py-12 bg-white transition-all duration-300">
         <div class="container mx-auto px-4">
             <h2 class="text-2xl font-bold text-gray-800 text-center mb-8">জনপ্রিয় ক্যাটাগরি</h2>
             <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
-                <a href="#" class="bg-gray-50 border border-gray-100 p-6 rounded-xl text-center hover:shadow-md hover:border-blue-300 transition group"><div class="w-16 h-16 mx-auto bg-blue-100 rounded-full flex items-center justify-center mb-3 group-hover:scale-110 transition">👶</div><h3 class="font-semibold text-gray-700">বেবি কেয়ার</h3></a>
-                <a href="#" class="bg-gray-50 border border-gray-100 p-6 rounded-xl text-center hover:shadow-md hover:border-blue-300 transition group"><div class="w-16 h-16 mx-auto bg-orange-100 rounded-full flex items-center justify-center mb-3 group-hover:scale-110 transition">🍳</div><h3 class="font-semibold text-gray-700">হোম & কিচেন</h3></a>
-                <a href="#" class="bg-gray-50 border border-gray-100 p-6 rounded-xl text-center hover:shadow-md hover:border-blue-300 transition group"><div class="w-16 h-16 mx-auto bg-green-100 rounded-full flex items-center justify-center mb-3 group-hover:scale-110 transition">⌚</div><h3 class="font-semibold text-gray-700">লাইফস্টাইল</h3></a>
-                <a href="#" class="bg-gray-50 border border-gray-100 p-6 rounded-xl text-center hover:shadow-md hover:border-blue-300 transition group"><div class="w-16 h-16 mx-auto bg-yellow-100 rounded-full flex items-center justify-center mb-3 group-hover:scale-110 transition">🪴</div><h3 class="font-semibold text-gray-700">বাগান & আউটডোর</h3></a>
-                <a href="#" class="bg-gray-50 border border-gray-100 p-6 rounded-xl text-center hover:shadow-md hover:border-blue-300 transition group"><div class="w-16 h-16 mx-auto bg-purple-100 rounded-full flex items-center justify-center mb-3 group-hover:scale-110 transition">🛠️</div><h3 class="font-semibold text-gray-700">টুলস</h3></a>
+                <a href="#" class="bg-gray-50 border border-gray-100 p-6 rounded-xl text-center hover:shadow-md hover:border-blue-300 transition group"><div class="w-16 h-16 mx-auto bg-blue-100 rounded-full flex items-center justify-center mb-3 group-hover:scale-110 transition text-2xl">👶</div><h3 class="font-semibold text-gray-700">বেবি কেয়ার</h3></a>
+                <a href="#" class="bg-gray-50 border border-gray-100 p-6 rounded-xl text-center hover:shadow-md hover:border-blue-300 transition group"><div class="w-16 h-16 mx-auto bg-orange-100 rounded-full flex items-center justify-center mb-3 group-hover:scale-110 transition text-2xl">🍳</div><h3 class="font-semibold text-gray-700">হোম & কিচেন</h3></a>
+                <a href="#" class="bg-gray-50 border border-gray-100 p-6 rounded-xl text-center hover:shadow-md hover:border-blue-300 transition group"><div class="w-16 h-16 mx-auto bg-green-100 rounded-full flex items-center justify-center mb-3 group-hover:scale-110 transition text-2xl">⌚</div><h3 class="font-semibold text-gray-700">লাইফস্টাইল</h3></a>
+                <a href="#" class="bg-gray-50 border border-gray-100 p-6 rounded-xl text-center hover:shadow-md hover:border-blue-300 transition group"><div class="w-16 h-16 mx-auto bg-yellow-100 rounded-full flex items-center justify-center mb-3 group-hover:scale-110 transition text-2xl">🪴</div><h3 class="font-semibold text-gray-700">বাগান & আউটডোর</h3></a>
+                <a href="#" class="bg-gray-50 border border-gray-100 p-6 rounded-xl text-center hover:shadow-md hover:border-blue-300 transition group"><div class="w-16 h-16 mx-auto bg-purple-100 rounded-full flex items-center justify-center mb-3 group-hover:scale-110 transition text-2xl">🛠️</div><h3 class="font-semibold text-gray-700">টুলস</h3></a>
             </div>
         </div>
     </section>
 
-    <section id="all-products" class="py-12 bg-gray-50">
+    <!-- ================= Trending Products ================= -->
+    <section id="trending" class="py-12 bg-gray-50 pt-24 -mt-8 transition-all duration-300">
         <div class="container mx-auto px-4">
-            <h2 class="text-2xl font-bold text-gray-800 text-center mb-8">আমাদের সকল পণ্য</h2>
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-2xl font-bold text-gray-800 flex items-center gap-2">
+                    <span class="text-orange-500 text-3xl">🔥</span> ট্রেন্ডিং প্রোডাক্টস
+                </h2>
+                <a href="#all-products" class="text-blue-600 font-bold hover:underline">সব দেখুন &rarr;</a>
+            </div>
+            <div id="trending-grid" class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <!-- Data will load here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= Top Selling Products ================= -->
+    <section id="top-selling" class="py-12 bg-white pt-24 -mt-8 transition-all duration-300">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-2xl font-bold text-gray-800 flex items-center gap-2">
+                    <span class="text-blue-500 text-3xl">⭐</span> টপ সেলিং
+                </h2>
+                <a href="#all-products" class="text-blue-600 font-bold hover:underline">সব দেখুন &rarr;</a>
+            </div>
+            <div id="top-selling-grid" class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <!-- Data will load here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= All Products ================= -->
+    <section id="all-products" class="py-12 bg-gray-50 pt-24 -mt-8">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl font-bold text-gray-800">আমাদের সকল পণ্য</h2>
+                <div class="w-24 h-1 bg-blue-600 mx-auto mt-3 rounded-full"></div>
+            </div>
             
             <div id="product-grid" class="grid grid-cols-2 md:grid-cols-4 gap-6">
                 <div class="col-span-full text-center py-10">
@@ -82,14 +122,30 @@
                     <p class="text-slate-500 font-medium">প্রোডাক্ট লোড হচ্ছে...</p>
                 </div>
             </div>
-            
-            <div class="text-center mt-10">
-                <a href="#" class="inline-block border-2 border-blue-600 text-blue-600 font-semibold px-8 py-2 rounded hover:bg-blue-600 hover:text-white transition">সবগুলো দেখুন</a>
+        </div>
+    </section>
+
+    <!-- ================= About Us Section ================= -->
+    <section id="about" class="py-16 bg-white pt-24 -mt-8">
+        <div class="container mx-auto px-4 flex flex-col md:flex-row items-center gap-10">
+            <div class="md:w-1/2">
+                <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=2000&auto=format&fit=crop" alt="About Us" class="rounded-2xl shadow-lg border-4 border-gray-50 w-full h-80 object-cover">
+            </div>
+            <div class="md:w-1/2 text-center md:text-left">
+                <span class="text-orange-500 font-bold tracking-wider uppercase text-sm">ShopLogo সম্পর্কে জানুন</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mt-2 mb-4">বিশ্বস্ত অনলাইন শপিংয়ের ঠিকানা</h2>
+                <p class="text-gray-600 leading-relaxed mb-4 text-lg">
+                    আমরা দিচ্ছি ১০০% অরিজিনাল প্রোডাক্টের গ্যারান্টি। আমাদের লক্ষ্য হলো আপনাদের দৈনন্দিন জীবনকে আরও সহজ ও সুন্দর করা। দ্রুত ডেলিভারি এবং সেরা কাস্টমার সার্ভিস নিশ্চিত করাই আমাদের মূল লক্ষ্য।
+                </p>
+                <p class="text-gray-600 leading-relaxed text-lg">
+                    দীর্ঘদিন ধরে নিরবচ্ছিন্নভাবে মানসম্মত পণ্য ও দ্রুততম সেবার মাধ্যমে আমরা হাজারো সন্তুষ্ট ক্রেতার ভালোবাসা ও আস্থা অর্জন করে আসছি।
+                </p>
             </div>
         </div>
     </section>
 
-    <footer class="bg-gray-900 text-gray-300 py-12 border-t-4 border-blue-600">
+    <!-- Footer -->
+    <footer id="contact" class="bg-gray-900 text-gray-300 py-12 border-t-4 border-blue-600 pt-20">
         <div class="container mx-auto px-4">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                 <div>
@@ -100,7 +156,7 @@
                     <h4 class="text-lg font-semibold text-white mb-4">প্রয়োজনীয় লিংক</h4>
                     <ul class="space-y-2 text-sm">
                         <li><a href="#" class="hover:text-orange-500 transition">হোম</a></li>
-                        <li><a href="#" class="hover:text-orange-500 transition">আমাদের সম্পর্কে</a></li>
+                        <li><a href="#about" class="hover:text-orange-500 transition">আমাদের সম্পর্কে</a></li>
                         <li><a href="#" class="hover:text-orange-500 transition">প্রাইভেসি পলিসি</a></li>
                     </ul>
                 </div>
@@ -108,7 +164,8 @@
                     <h4 class="text-lg font-semibold text-white mb-4">যোগাযোগ</h4>
                     <ul class="space-y-2 text-sm">
                         <li class="flex items-center"><span class="mr-2">📞</span><span>+880 1XXX XXXXXX</span></li>
-                        <li class="flex items-center"><span class="mr-2">✉️</span><span>support@yourdomain.com</span></li>
+                        <li class="flex items-center"><span class="mr-2">✉️</span><span>support@domain.com</span></li>
+                        <li class="flex items-center mt-2 text-gray-400">📍 মিরপুর-১০, ঢাকা, বাংলাদেশ</li>
                     </ul>
                 </div>
                 <div>
@@ -120,37 +177,62 @@
         </div>
     </footer>
 
+    <!-- Firebase Script -->
     <script type="module" src="firebase-config.js"></script>
     <script type="module">
-        import { db, collection, getDocs } from './firebase-config.js';
+        // getDoc এবং doc ইমপোর্ট করা হয়েছে
+        import { db, collection, getDocs, doc, getDoc } from './firebase-config.js';
 
-        async function loadProducts() {
-            const productGrid = document.getElementById('product-grid');
+        // হোমপেজ সেটিংস চেক করার ফাংশন
+        async function applyHomepageSettings() {
+            try {
+                const docSnap = await getDoc(doc(db, "settings", "homepage"));
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+                    
+                    // Categories
+                    if (data.showCategories === false) document.getElementById('categories-section').classList.add('hidden');
+                    // Trending
+                    if (data.showTrending === false) document.getElementById('trending').classList.add('hidden');
+                    // Top Selling
+                    if (data.showTopSelling === false) document.getElementById('top-selling').classList.add('hidden');
+                }
+            } catch (error) {
+                console.error("Error loading homepage settings:", error);
+            }
+        }
+
+        async function loadAllProducts() {
+            const trendingGrid = document.getElementById('trending-grid');
+            const topSellingGrid = document.getElementById('top-selling-grid');
+            const allProductGrid = document.getElementById('product-grid');
+
             try {
                 const querySnapshot = await getDocs(collection(db, "products"));
+                let products = [];
                 
-                if(querySnapshot.empty) {
-                    productGrid.innerHTML = '<div class="col-span-full text-center text-slate-500 py-10 font-medium">এখনো কোনো প্রোডাক্ট যুক্ত করা হয়নি।</div>';
+                querySnapshot.forEach((doc) => {
+                    products.push({ id: doc.id, ...doc.data() });
+                });
+
+                if(products.length === 0) {
+                    const emptyMsg = '<div class="col-span-full text-center text-slate-500 py-10 font-medium">কোনো প্রোডাক্ট পাওয়া যায়নি।</div>';
+                    trendingGrid.innerHTML = emptyMsg;
+                    topSellingGrid.innerHTML = emptyMsg;
+                    allProductGrid.innerHTML = emptyMsg;
                     return;
                 }
 
-                let html = '';
-                querySnapshot.forEach((doc) => {
-                    const p = doc.data();
-                    const productId = doc.id; 
-                    
+                // কার্ড রেন্ডার করার ফাংশন
+                const generateCardHtml = (p) => {
                     let oldPriceHtml = p.oldPrice ? `<span class="text-gray-400 text-sm line-through">৳${p.oldPrice}</span>` : '';
-                    
-                    // ইমেজ দেখানোর লজিক
                     let imgHtml = p.imgMain 
                         ? `<img src="${p.imgMain}" alt="${p.name}" class="w-full h-48 object-cover group-hover:scale-105 transition duration-300">` 
                         : `<div class="h-48 bg-slate-100 flex items-center justify-center text-slate-400">নো ইমেজ</div>`;
 
-                    // প্রোডাক্ট কার্ডের ক্লিকেবল ডিজাইন আপডেট করা হয়েছে
-                    html += `
-                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-lg transition flex flex-col justify-between group relative">
-                        
-                        <a href="product-details.html?id=${productId}" class="block flex-grow cursor-pointer">
+                    return `
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl transition flex flex-col justify-between group relative">
+                        <a href="product-details.html?id=${p.id}" class="block flex-grow cursor-pointer">
                             <div class="relative overflow-hidden">
                                 ${imgHtml}
                             </div>
@@ -163,24 +245,37 @@
                                 </div>
                             </div>
                         </a>
-
                         <div class="px-4 pb-4 mt-auto">
-                            <a href="product-details.html?id=${productId}" class="block w-full text-center bg-slate-800 text-white py-2.5 rounded-lg font-bold hover:bg-blue-600 transition shadow-md">
+                            <a href="product-details.html?id=${p.id}" class="block w-full text-center bg-slate-800 text-white py-2.5 rounded-lg font-bold hover:bg-blue-600 transition shadow-md">
                                 অর্ডার করুন
                             </a>
                         </div>
-                        
                     </div>
                     `;
-                });
-                productGrid.innerHTML = html;
+                };
+
+                // Trending: প্রথম ৪টি প্রোডাক্ট
+                const trendingHtml = products.slice(0, 4).map(generateCardHtml).join('');
+                trendingGrid.innerHTML = trendingHtml;
+
+                // Top Selling: শেষের ৪টি প্রোডাক্ট
+                const topSellingHtml = products.slice().reverse().slice(0, 4).map(generateCardHtml).join('');
+                topSellingGrid.innerHTML = topSellingHtml;
+
+                // All Products: সবগুলো প্রোডাক্ট
+                const allHtml = products.map(generateCardHtml).join('');
+                allProductGrid.innerHTML = allHtml;
+
             } catch (error) {
                 console.error("Error fetching products: ", error);
-                productGrid.innerHTML = '<div class="col-span-full text-center text-red-500 py-10">প্রোডাক্ট লোড করতে সমস্যা হয়েছে!</div>';
+                allProductGrid.innerHTML = '<div class="col-span-full text-center text-red-500 py-10">প্রোডাক্ট লোড করতে সমস্যা হয়েছে!</div>';
             }
         }
 
-        loadProducts();
+        // ফাংশনগুলো কল করা হলো
+        loadAllProducts();
+        applyHomepageSettings();
+
     </script>
 </body>
 </html>
