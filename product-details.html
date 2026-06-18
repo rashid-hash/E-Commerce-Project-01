@@ -36,7 +36,7 @@
                         <div class="w-full h-80 md:h-96 bg-gray-200 rounded-lg flex items-center justify-center text-gray-400">ইমেজ লোড হচ্ছে...</div>
                     </div>
                     <div id="thumbnails-container" class="flex space-x-4 overflow-x-auto py-2">
-                        </div>
+                    </div>
                 </div>
 
                 <div class="md:w-1/2">
@@ -93,7 +93,7 @@
     </section>
 
     <footer class="bg-gray-900 text-gray-300 py-6 border-t-4 border-blue-600 text-center">
-        <p class="text-sm">&copy; ২০২৬ ShopLogo. সর্বস্বত্ব সংরক্ষিত।</p>
+        <p class="text-sm">&copy; ২০২৬ ShopLogo. সর্বস্বত্ব সংরক্ষিত。</p>
     </footer>
 
     <script type="module">
@@ -191,14 +191,13 @@
                 });
 
                 // ২. টেলিগ্রাম বটে নোটিফিকেশন পাঠানো
-                // সতর্কতা: এখানে আপনার আসল টোকেন এবং আইডি বসান
                 const botToken = "8487744150:AAF-ett0rDB4TvoQzOLfwgG7MbBxrfaK3nI"; 
                 const chatId = "5892287959"; 
                 
                 const tgMessage = `🛒 *নতুন অর্ডার এসেছে!*\n\n📦 *প্রোডাক্ট:* ${pName}\n💰 *দাম:* ${pPrice}\n\n👤 *কাস্টমার:* ${cName}\n📞 *ফোন:* ${cPhone}\n📍 *ঠিকানা:* ${cAddress}\n🚚 *ডেলিভারি এরিয়া:* ${dArea}`;
 
-                // টেলিগ্রাম API কল (নতুন ডিবাগিং সিস্টেমসহ)
-                if(botToken && chatId && botToken !== "8487744150:AAF-ett0rDB4TvoQzOLfwgG7MbBxrfaK3nI" && chatId !== "5892287959") {
+                // টেলিগ্রাম API কল (শর্ত পরিবর্তন করা হয়েছে)
+                if(botToken && chatId) {
                     const tgResponse = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
@@ -213,8 +212,8 @@
                     
                     // যদি টেলিগ্রাম মেসেজটি এক্সেপ্ট না করে
                     if(!tgResult.ok) {
-                        alert("ফায়ারবেসে অর্ডার সেভ হয়েছে, কিন্তু টেলিগ্রাম এরর: " + tgResult.description);
                         console.error("Telegram API Error:", tgResult);
+                        alert("অর্ডার সেভ হয়েছে, কিন্তু টেলিগ্রামে মেসেজ যায়নি। কারণ: " + tgResult.description);
                     }
                 }
 
@@ -222,36 +221,7 @@
                 window.location.href = "index.html";
 
             } catch (error) {
-                alert("দুঃখিত, কোনো একটি সমস্যা হয়েছে। দয়া করে আবার চেষ্টা করুন।");
                 console.error("System Error: ", error);
-                submitBtn.innerText = "অর্ডার কনফার্ম করুন";
-                submitBtn.disabled = false;
-            }
-        });
-
-                // ২. টেলিগ্রাম বটে নোটিফিকেশন পাঠানো
-                const botToken = "8487744150:AAF-ett0rDB4TvoQzOLfwgG7MbBxrfaK3nI"; // BotFather থেকে পাওয়া টোকেন
-                const chatId = "5892287959"; // আপনার টেলিগ্রাম চ্যাট আইডি
-                
-                const tgMessage = `🛒 *নতুন অর্ডার এসেছে!*\n\n📦 *প্রোডাক্ট:* ${pName}\n💰 *দাম:* ${pPrice}\n\n👤 *কাস্টমার:* ${cName}\n📞 *ফোন:* ${cPhone}\n📍 *ঠিকানা:* ${cAddress}\n🚚 *ডেলিভারি এরিয়া:* ${dArea}`;
-
-                // টেলিগ্রাম API কল
-                if(botToken !== "8487744150:AAF-ett0rDB4TvoQzOLfwgG7MbBxrfaK3nI" && chatId !== "5892287959") {
-                    await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            chat_id: chatId,
-                            text: tgMessage,
-                            parse_mode: 'Markdown'
-                        })
-                    });
-                }
-
-                alert("ধন্যবাদ! আপনার অর্ডারটি সফলভাবে সম্পন্ন হয়েছে। খুব শীঘ্রই আমাদের প্রতিনিধি আপনার সাথে যোগাযোগ করবে।");
-                window.location.href = "index.html";
-
-            } catch (error) {
                 alert("দুঃখিত, কোনো একটি সমস্যা হয়েছে। দয়া করে আবার চেষ্টা করুন।");
                 submitBtn.innerText = "অর্ডার কনফার্ম করুন";
                 submitBtn.disabled = false;
